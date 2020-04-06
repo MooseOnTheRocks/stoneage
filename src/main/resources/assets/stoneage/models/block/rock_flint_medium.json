@@ -1,0 +1,20 @@
+{
+	"textures": {
+		"rock": "minecraft:block/andesite",
+		"particle": "minecraft:block/andesite"
+	},
+	"elements": [
+		{
+            "from": [4, 0, 4],
+            "to": [12, 2, 12],
+            "faces": {
+				"down": {"texture": "#rock"},
+				"up": {"texture": "#rock"},
+				"north": {"texture": "#rock"},
+				"south": {"texture": "#rock"},
+				"west": {"texture": "#rock"},
+				"east": {"texture": "#rock"}
+			}
+		}
+	]
+}

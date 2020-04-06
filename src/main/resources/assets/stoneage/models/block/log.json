@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_column",
+    "textures": {
+    	"end": "stoneage:block/log_top",
+        "side": "stoneage:block/log_side"
+    }
+}

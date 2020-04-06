@@ -1,0 +1,8 @@
+{
+	"forge_marker": 1,
+    "variants": {
+        "axis=y": { "model": "stoneage:block/log" },
+        "axis=z": { "model": "stoneage:block/log", "x": 90 },
+        "axis=x": { "model": "stoneage:block/log", "x": 90, "y": 90 }
+    }
+}
