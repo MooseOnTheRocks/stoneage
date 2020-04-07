@@ -1,5 +1,6 @@
 package dev.foltz.stoneage.block;
 
+import dev.foltz.stoneage.rock.Rock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,38 +19,14 @@ public class SABlockRock extends Block {
     private static final VoxelShape SMALL_AABB = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 1.0D, 10.0D);
     private static final VoxelShape MEDIUM_AABB = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 2.0D, 12.0D);
 
-    public enum RockType {
-        FLINT("flint"),
-        GRANITE("granite");
+    public final Rock rock;
 
-        public final String name;
-
-        private RockType(String name) {
-            this.name = name;
-        }
-    };
-
-    public enum RockSize {
-        SMALL("small"),
-        MEDIUM("medium");
-
-        public final String name;
-
-        private RockSize(String name) {
-            this.name = name;
-        }
-    };
-
-    public final RockType type;
-    public final RockSize size;
-
-    public SABlockRock(RockType type, RockSize size) {
+    public SABlockRock(Rock rock) {
         super(Properties
                 .create(Material.ROCK)
                 .doesNotBlockMovement()
                 .hardnessAndResistance(0.5F));
-        this.type = type;
-        this.size = size;
+        this.rock = rock;
     }
 
     @Override
@@ -66,7 +43,7 @@ public class SABlockRock extends Block {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        switch (size) {
+        switch (rock.size) {
             case SMALL:
                 return SMALL_AABB;
             case MEDIUM:

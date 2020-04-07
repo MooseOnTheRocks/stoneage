@@ -3,7 +3,9 @@ package dev.foltz.stoneage.item;
 import dev.foltz.stoneage.StoneAge;
 import dev.foltz.stoneage.block.SABlockRock;
 import dev.foltz.stoneage.block.SABlocks;
+import dev.foltz.stoneage.rock.Rocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -24,7 +26,7 @@ public class SAItems {
     public static final ItemGroup itemGroup = new ItemGroup("stoneage") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(Item.BLOCK_TO_ITEM.get(SABlocks.ROCK_FLINT_SMALL.get()));
+            return Rocks.FLINT_SMALL.asItemStack();
         }
     };
 
@@ -32,11 +34,7 @@ public class SAItems {
     public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, StoneAge.MODID);
 
     // == ALL ITEMS ==
-    // -- Rocks
-    public static final RegistryObject<Item> ROCK_FLINT_SMALL = registerItem("rock_flint_small", () -> new SAItemRock((SABlockRock) SABlocks.ROCK_FLINT_SMALL.get()));
-    public static final RegistryObject<Item> ROCK_FLINT_MEDIUM = registerItem("rock_flint_medium", () -> new SAItemRock((SABlockRock) SABlocks.ROCK_FLINT_MEDIUM.get()));
-    public static final RegistryObject<Item> ROCK_GRANITE_SMALL = registerItem("rock_granite_small", () -> new SAItemRock((SABlockRock) SABlocks.ROCK_GRANITE_SMALL.get()));
-    public static final RegistryObject<Item> ROCK_GRANITE_MEDIUM = registerItem("rock_granite_medium", () -> new SAItemRock((SABlockRock) SABlocks.ROCK_GRANITE_MEDIUM.get()));
+    public static final RegistryObject<Item> LOG = registerItem("log", () -> new BlockItem(SABlocks.LOG.get(), new Item.Properties().group(SAItems.itemGroup)));
     // -- Tools
     public static final RegistryObject<Item> STONE_EDGE_FLINT = registerItem("stone_edge_flint", () -> new Item(new Item.Properties().group(SAItems.itemGroup).defaultMaxDamage(20)));
     public static final RegistryObject<Item> HANDAX_FLINT = registerItem("handax_flint", () -> new SAItemHandax());
@@ -45,8 +43,12 @@ public class SAItems {
     public static final RegistryObject<Item> STICK = registerItem("stick", () -> new Item(new Item.Properties().group(itemGroup).defaultMaxDamage(10)));
     // -- Materials
     public static final RegistryObject<Item> BARK = registerItem("bark", () -> new Item(new Item.Properties().group(itemGroup)));
+    public static final RegistryObject<Item> PLANT_FIBER = registerItem("plant_fiber", () -> new Item(new Item.Properties().group(itemGroup).defaultMaxDamage(2)));
+    public static final RegistryObject<Item> PLANT_FIBER_WOVEN = registerItem("plant_fiber_woven", () -> new Item(new Item.Properties().group(itemGroup).defaultMaxDamage(4)));
+    public static final RegistryObject<Item> MAT_BARK = registerItem("mat_bark", () -> new Item(new Item.Properties().group(itemGroup).defaultMaxDamage(4)));
+    public static final RegistryObject<Item> MAT_CRAFTING = registerItem("mat_crafting", () -> new Item(new Item.Properties().group(itemGroup)));
 
-    public static RegistryObject<Item> registerItem(String name, Supplier<Item> sup) {
+    public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> sup) {
         return ITEMS.register(name, sup);
     }
 }

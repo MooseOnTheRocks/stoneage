@@ -13,5 +13,10 @@
   "itemGroup.stoneage": "Stone Age",
 
   "generator.stoneage": "Stone Age",
-  "generator.stoneage.info": "The good ol' days."
+  "generator.stoneage.info": "The good ol' days.",
+
+  "createWorld.customize.stoneage.title": "Stone Age World",
+
+  "stoneage.key.swapHands": "Swap Hands",
+  "key.categories.stoneage": "Stone Age"
 }

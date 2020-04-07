@@ -67,6 +67,7 @@ public class Gathering {
             if (didGather) {
                 world.destroyBlock(pos, false);
                 player.swingArm(player.getActiveHand());
+
                 return true;
             }
             else {

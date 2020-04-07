@@ -29,7 +29,7 @@ public class SAChunkGenerator extends ChunkGenerator<SAGenerationSettings> {
 
         long seed = world.getSeed();
         ArrayList<WorldDesc> composite = new ArrayList<>();
-        composite.add(new WorldDescIsland(0, 0, 64, 128, getSeaLevel(), 20, seed));
+        composite.add(new WorldDescIsland(0, 0, 64, 128, getSeaLevel(), 15, seed));
         worldDesc = new WorldDescComposite(composite);
     }
 

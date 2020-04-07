@@ -28,7 +28,7 @@ public class SABiomeProvider extends BiomeProvider {
     }
 
     public List<Biome> getBiomesToSpawnIn() {
-        return BIOMES_TO_SPAWN_IN;
+        return SPAWN_BIOMES;
     }
 
     public Biome getBiome(int x, int y) {

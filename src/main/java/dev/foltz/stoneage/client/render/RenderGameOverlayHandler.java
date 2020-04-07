@@ -1,5 +1,6 @@
-package dev.foltz.stoneage.client;
+package dev.foltz.stoneage.client.render;
 
+import dev.foltz.stoneage.client.input.SAKeyBindings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
@@ -8,14 +9,18 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-@OnlyIn(Dist.CLIENT)
 public class RenderGameOverlayHandler {
+
+    public static boolean shouldShowOverlay = false;
+
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onDrawBlockHighlightEvent(final DrawBlockHighlightEvent event) {
         // TODO: Context sensitive block highlights
         // NOTE: Event name will change in 1.15
     }
 
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onRenderGameOverlayEvent(final RenderGameOverlayEvent.Pre event) {
         switch (event.getType()) {
@@ -25,7 +30,9 @@ public class RenderGameOverlayHandler {
         case AIR:
         case HOTBAR:
         case EXPERIENCE:
-            event.setCanceled(true);
+            if (!SAKeyBindings.SHOW_ITEM_INFO.isKeyDown()) {
+                event.setCanceled(true);
+            }
             break;
 
         case ALL:

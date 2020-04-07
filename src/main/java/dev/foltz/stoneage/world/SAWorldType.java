@@ -1,22 +1,15 @@
 package dev.foltz.stoneage.world;
 
-import dev.foltz.stoneage.world.biome.SABiomes;
+import dev.foltz.stoneage.client.gui.SAScreenCreateWorld;
 import dev.foltz.stoneage.world.gen.SABiomeProvider;
 import dev.foltz.stoneage.world.gen.SAChunkGenerator;
 import dev.foltz.stoneage.world.gen.SAGenerationSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.CreateWorldScreen;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.provider.SingleBiomeProvider;
-import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
-import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.world.WorldEvent;
@@ -27,11 +20,12 @@ import net.minecraftforge.fml.common.Mod;
 public class SAWorldType extends WorldType {
     public SAWorldType() {
         super("stoneage");
+        setCustomOptions(true);
     }
 
     @SubscribeEvent
     public static void onCreateSpawnPosition(WorldEvent.CreateSpawnPosition event) {
-        System.out.println("Fixing spawn point.");
+        /*System.out.println("Fixing spawn point.");
         IWorld world = event.getWorld();
         Dimension dim = world.getDimension();
         if (dim.getType() == DimensionType.OVERWORLD) {
@@ -39,6 +33,7 @@ public class SAWorldType extends WorldType {
             dim.setSpawnPoint(new BlockPos(0, height, 0));
             event.setCanceled(true);
         }
+         */
     }
 
     @Override
@@ -55,7 +50,7 @@ public class SAWorldType extends WorldType {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void onCustomizeButton(Minecraft mc, CreateWorldScreen gui) {
-        super.onCustomizeButton(mc, gui);
+        mc.displayGuiScreen(new SAScreenCreateWorld(gui));
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -40,6 +40,7 @@ public class Placing {
         BlockState blockAt = world.getBlockState(placePos);
         if (blockAt.getBlock() == Blocks.AIR) {
             BlockState blockToPlace = placeable.get(placeItem);
+
             world.setBlockState(placePos, blockToPlace);
             heldItemStack.shrink(1);
             player.swingArm(hand);
