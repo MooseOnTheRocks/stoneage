@@ -2,11 +2,9 @@ package dev.foltz.stoneage.network;
 
 import dev.foltz.stoneage.StoneAge;
 import dev.foltz.stoneage.interactions.gathering.Gathering;
-import dev.foltz.stoneage.interactions.handcrafting.HandCrafting;
 import dev.foltz.stoneage.interactions.inventory.InventoryActions;
+import dev.foltz.stoneage.interactions.knapping.Knapping;
 import dev.foltz.stoneage.interactions.placing.Placing;
-import dev.foltz.stoneage.interactions.tool.ToolAction;
-import dev.foltz.stoneage.interactions.tool.ToolActions;
 import dev.foltz.stoneage.network.packets.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.Direction;
@@ -46,7 +44,7 @@ public class SAPacketHandler {
         context.get().enqueueWork(() -> {
             System.out.println("tool action packet");
             ServerPlayerEntity player = context.get().getSender();
-            ToolActions.attempt(player.world, player, player.getHeldItem(packet.hand), packet.pos);
+            // ToolActions.attempt(player.world, player, player.getHeldItem(packet.hand), packet.pos);
         });
         context.get().setPacketHandled(true);
     }
@@ -98,7 +96,8 @@ public class SAPacketHandler {
         context.get().enqueueWork(() -> {
             System.out.println("handcraft packet: " + packet);
             ServerPlayerEntity player = context.get().getSender();
-            HandCrafting.attempt(player.world, player);
+            // TODO: This was a quick fix! Develop handcrafting and knapping more...
+            Knapping.attempt(player.world, player);
         });
         context.get().setPacketHandled(true);
     }

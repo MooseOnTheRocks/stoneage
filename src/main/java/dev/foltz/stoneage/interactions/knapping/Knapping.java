@@ -1,19 +1,14 @@
-package dev.foltz.stoneage.interactions.handcrafting;
+package dev.foltz.stoneage.interactions.knapping;
 
-import dev.foltz.stoneage.item.SAItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 
-public class HandCrafting {
-
+public class Knapping {
     public static final ArrayList<Recipe> recipes = new ArrayList<>();
 
     private static class Recipe {
@@ -27,7 +22,7 @@ public class HandCrafting {
 
         public boolean validFor(ItemStack a, ItemStack b) {
             if ((tool.isItemEqualIgnoreDurability(a) && mat.isItemEqualIgnoreDurability(b))
-                || (tool.isItemEqualIgnoreDurability(b) && mat.isItemEqualIgnoreDurability(a))) {
+                    || (tool.isItemEqualIgnoreDurability(b) && mat.isItemEqualIgnoreDurability(a))) {
                 return true;
             }
             else{
@@ -66,6 +61,7 @@ public class HandCrafting {
         ItemStack stackRight = player.getHeldItem(Hand.MAIN_HAND);
         ItemStack stackLeft = player.getHeldItem(Hand.OFF_HAND);
         if (!isRecipe(stackRight, stackLeft)) {
+            System.out.println("Not a recipe :c");
             return false;
         }
         Recipe recipe = getRecipe(stackRight, stackLeft);
@@ -83,16 +79,8 @@ public class HandCrafting {
             handMat = Hand.MAIN_HAND;
         }
 
-        System.out.println("Recipe:");
-        System.out.println("  Tool: " + recipe.tool);
-        System.out.println("  Mat: " + recipe.mat);
-        System.out.println("Selected:" );
-        System.out.println("  Tool: " + stackTool);
-        System.out.println("  Mat: " + stackMat);
-
         stackTool.damageItem(1, player, (p) -> {});
         stackMat.damageItem(1, player, (p) -> {
-            System.out.println("Hand Mat: " + handMat);
             if (handMat == Hand.MAIN_HAND) {
                 player.setItemStackToSlot(EquipmentSlotType.MAINHAND, recipe.result.copy());
             }
@@ -100,7 +88,8 @@ public class HandCrafting {
                 player.setItemStackToSlot(EquipmentSlotType.OFFHAND, recipe.result.copy());
             }
         });
-
+        System.out.println("Did it!");
+        System.out.println("isRemote: " + world.isRemote);
         return true;
     }
 }

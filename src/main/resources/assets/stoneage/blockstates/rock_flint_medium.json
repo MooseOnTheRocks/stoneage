@@ -1,6 +1,6 @@
 {
 	"forge_marker": 1,
     "variants": {
-        "":  { "model": "stoneage:block/rock_flint_medium" }
+        "": { "model": "stoneage:block/rock_flint_medium" }
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
@@ -15,9 +16,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
 public class SABlockRock extends Block {
-
-    private static final VoxelShape SMALL_AABB = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 1.0D, 10.0D);
-    private static final VoxelShape MEDIUM_AABB = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 2.0D, 12.0D);
+    private static final VoxelShape SMALL_AABB  = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 4.0D, 10.0D);
+    private static final VoxelShape MEDIUM_AABB = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
 
     public final Rock rock;
 
@@ -43,17 +43,23 @@ public class SABlockRock extends Block {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        Vec3d offset = getOffset(state, worldIn, pos);
         switch (rock.size) {
             case SMALL:
-                return SMALL_AABB;
+                return SMALL_AABB.withOffset(offset.x, offset.y, offset.z);
             case MEDIUM:
             default:
-                return MEDIUM_AABB;
+                return MEDIUM_AABB.withOffset(offset.x, offset.y, offset.z);
         }
     }
 
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
+    }
+
+    @Override
+    public Block.OffsetType getOffsetType() {
+        return Block.OffsetType.XZ;
     }
 }

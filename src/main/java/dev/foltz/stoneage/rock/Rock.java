@@ -1,55 +1,58 @@
 package dev.foltz.stoneage.rock;
 
-import dev.foltz.stoneage.block.SABlockRock;
-import dev.foltz.stoneage.block.SABlocks;
-import dev.foltz.stoneage.item.SAItemRock;
-import dev.foltz.stoneage.item.SAItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.RegistryObject;
 
+import java.util.Objects;
+
 public class Rock {
-    public enum Type {
-        FLINT,
-        GRANITE;
-    }
-
-    public enum Size {
-        SMALL,
-        MEDIUM;
-    }
-
+    public enum Type { FLINT, GRANITE }
     public final Type type;
+
+    public enum Size { SMALL, MEDIUM }
     public final Size size;
 
-    public final RegistryObject<SABlockRock> BLOCK;
-    public final RegistryObject<SAItemRock> ITEM;
+    protected RegistryObject<Block> block;
+    protected RegistryObject<Item> item;
 
-    public Rock(Type type, Size size) {
+    protected Rock(Type type, Size size) {
         this.type = type;
         this.size = size;
-
-        BLOCK = SABlocks.registerBlock(getRegistryName(), () -> new SABlockRock(this));
-        ITEM = SAItems.registerItem(getRegistryName(), () -> new SAItemRock(this));
     }
 
-    public String getRegistryName() {
-        return "rock_" + type.name().toLowerCase() + "_" + size.name().toLowerCase();
-    }
-
-    public SABlockRock asBlock() {
-        return BLOCK.get();
+    public Block asBlock() {
+        return block.get();
     }
 
     public BlockState asBlockState() {
         return asBlock().getDefaultState();
     }
 
-    public SAItemRock asItem() {
-        return ITEM.get();
+    public Item asItem() {
+        return item.get();
     }
 
     public ItemStack asItemStack() {
         return new ItemStack(asItem());
+    }
+
+    public String getRegistryName() {
+        return "rock_" + type.name().toLowerCase() + "_" + size.name().toLowerCase();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rock rock = (Rock) o;
+        return type == rock.type && size == rock.size;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, size);
     }
 }

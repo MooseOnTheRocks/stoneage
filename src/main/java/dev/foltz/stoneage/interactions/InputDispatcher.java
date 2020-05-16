@@ -1,15 +1,18 @@
 package dev.foltz.stoneage.interactions;
 
 import dev.foltz.stoneage.client.input.SAKeyBindings;
+import dev.foltz.stoneage.network.SAPacketHandler;
 import dev.foltz.stoneage.network.packets.SAGatherAttemptPacket;
 import dev.foltz.stoneage.network.packets.SAHandCraftAttemptPacket;
-import dev.foltz.stoneage.network.SAPacketHandler;
 import dev.foltz.stoneage.network.packets.SAPlaceAttemptPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -23,14 +26,11 @@ import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class InputDispatcher {
-
     // Prevents default MC left and right click.
     // Also sends information to server.
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onInput(InputEvent.RawMouseEvent event) {
-        event.setCanceled(true);
-
         int button = event.getButton();
         int action = event.getAction();
         int mods = event.getMods();
@@ -50,6 +50,12 @@ public class InputDispatcher {
         float partialTicks = mc.getRenderPartialTicks();
         ItemStack leftItem = player.getHeldItemOffhand();
         ItemStack rightItem = player.getHeldItemMainhand();
+
+        if (alt) {
+            return;
+        }
+
+        event.setCanceled(true);
 
         if (release) return;
 
@@ -72,7 +78,7 @@ public class InputDispatcher {
                     switch (trace.getType()) {
                         case BLOCK:
                             BlockRayTraceResult blockTrace = (BlockRayTraceResult) trace;
-                            System.out.println("Sending place packet");
+                            System.out.println("Sending tool action packet");
                             SAPacketHandler.sendToolActionAttempt(Hand.MAIN_HAND, blockTrace.getPos());
                             break;
                         case ENTITY:
@@ -120,10 +126,14 @@ public class InputDispatcher {
     }
 
     // Handle keyboard input here
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onTick(final TickEvent.ClientTickEvent event) {
         if (SAKeyBindings.SWAP_ITEMS.query()) {
             SAPacketHandler.sendSwapItemsAttempt();
+        }
+        if (SAKeyBindings.DROP_ITEM.query()) {
+            SAPacketHandler.sendDropItemAttempt();
         }
     }
 

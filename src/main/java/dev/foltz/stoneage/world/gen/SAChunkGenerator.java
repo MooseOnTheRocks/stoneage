@@ -5,6 +5,8 @@ import dev.foltz.stoneage.world.gen.desc.WorldDescComposite;
 import dev.foltz.stoneage.world.gen.desc.WorldDescIsland;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -64,6 +66,10 @@ public class SAChunkGenerator extends ChunkGenerator<SAGenerationSettings> {
 
                     if (blockState != AIR) {
                         chunkIn.setBlockState(blockpos.setPos(i, k, j), blockState, false);
+                        if (blockState == Blocks.TALL_GRASS.getDefaultState()) {
+                            chunkIn.setBlockState(blockpos.setPos(i, k, j), Blocks.TALL_GRASS.getDefaultState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), false);
+                            chunkIn.setBlockState(blockpos.setPos(i, k + 1, j), Blocks.TALL_GRASS.getDefaultState().with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), false);
+                        }
                         heightmap.update(i, k, j, blockState);
                         heightmap1.update(i, k, j, blockState);
                     }

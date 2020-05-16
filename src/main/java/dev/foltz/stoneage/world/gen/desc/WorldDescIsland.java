@@ -1,11 +1,9 @@
 package dev.foltz.stoneage.world.gen.desc;
 
-import dev.foltz.stoneage.block.SABlocks;
 import dev.foltz.stoneage.world.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.SharedSeedRandom;
-import net.minecraftforge.common.Tags;
 
 public class WorldDescIsland extends WorldDesc {
     private static final double SCALE_INLAND_HEIGHT = 0.08d;
@@ -95,19 +93,24 @@ public class WorldDescIsland extends WorldDesc {
         else if (y == height + 1) {
             random.setBaseChunkSeed(x, z);
             double val = random.nextDouble();
-            if (val <= 0.25) {
-                return SHRUB;
+            if (val <= 0.75) {
+                if (val <= 0.5) {
+                    return SHRUB;
+                }
+                else {
+                    return Blocks.TALL_GRASS.getDefaultState();
+                }
             }
-            else if (val <= 0.29) {
+            else if (val <= 0.79) {
                 return ROCK_FLINT_SMALL;
             }
-            else if (val <= 0.30) {
+            else if (val <= 0.80) {
                 return ROCK_FLINT_MEDIUM;
             }
-            else if (val <= 0.34) {
+            else if (val <= 0.84) {
                 return ROCK_GRANITE_SMALL;
             }
-            else if (val <= 0.35) {
+            else if (val <= 0.85) {
                 return ROCK_GRANITE_MEDIUM;
             }
             else {

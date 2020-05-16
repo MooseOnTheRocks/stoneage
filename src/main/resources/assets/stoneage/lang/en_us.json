@@ -1,8 +1,8 @@
 {
-  "block.stoneage.rock_flint_small": "Flint (Small)",
-  "block.stoneage.rock_flint_medium": "Flint (Medium)",
-  "block.stoneage.rock_granite_small": "Granite (Small)",
-  "block.stoneage.rock_granite_medium": "Granite (Medium)",
+  "item.stoneage.rock_flint_small": "Flint (Small)",
+  "item.stoneage.rock_flint_medium": "Flint (Medium)",
+  "item.stoneage.rock_granite_small": "Granite (Small)",
+  "item.stoneage.rock_granite_medium": "Granite (Medium)",
 
   "block.stoneage.log": "Log",
 
@@ -17,6 +17,7 @@
 
   "createWorld.customize.stoneage.title": "Stone Age World",
 
-  "stoneage.key.swapHands": "Swap Hands",
+  "stoneage.key.swapItems": "Swap Items",
+  "stoneage.key.dropItem": "Drop Item",
   "key.categories.stoneage": "Stone Age"
 }

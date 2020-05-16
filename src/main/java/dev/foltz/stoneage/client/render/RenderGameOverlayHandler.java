@@ -1,10 +1,10 @@
 package dev.foltz.stoneage.client.render;
 
-import dev.foltz.stoneage.client.input.SAKeyBindings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -12,6 +12,12 @@ import net.minecraftforge.fml.common.Mod;
 public class RenderGameOverlayHandler {
 
     public static boolean shouldShowOverlay = false;
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void onRenderHand(final RenderHandEvent event) {
+       event.setCanceled(false);
+    }
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -30,10 +36,10 @@ public class RenderGameOverlayHandler {
         case AIR:
         case HOTBAR:
         case EXPERIENCE:
-            if (!SAKeyBindings.SHOW_ITEM_INFO.isKeyDown()) {
-                event.setCanceled(true);
-            }
-            break;
+//            if (!SAKeyBindings.SHOW_ITEM_INFO.isKeyDown()) {
+//                event.setCanceled(true);
+//            }
+//            break;
 
         case ALL:
         case HELMET:

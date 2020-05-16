@@ -30,7 +30,6 @@ public class SAScreenCreateWorld extends Screen {
 
     @Override
     protected void init() {
-
         optionList = new SAScreenCreateWorld.DetailsList();
 
         this.addButton(new Button(this.width / 2 + 5, this.height - 28, 150, 20, I18n.format("gui.cancel"), (button) -> {
